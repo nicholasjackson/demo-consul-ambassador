@@ -32,6 +32,10 @@ function ssh_payment {
   ssh -o StrictHostKeyChecking=no -i ./server.pem ubuntu@$(terraform output vms_payment_addr)
 }
 
+function ambassador_admin {
+  kubectl port-forward --address=0.0.0.0 svc/ambassador-admin 8877
+}
+
 case "$1" in
   k8s_config)
     echo Fetching Kubernetes configuration
@@ -55,6 +59,10 @@ case "$1" in
     echo Opening SSH session to Payment Server
     get_private_key
     ssh_payment
+    ;;
+  ambassador_admin)
+    echo Portforwarding to ambassador admin
+    ambassador_admin
     ;;
   *)
     echo "Usage:"
