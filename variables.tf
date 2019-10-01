@@ -1,9 +1,9 @@
 variable "project" {
-  default = "cloud-pong"
+  default = "consul-ambassador"
 }
 
 variable "region"{
-  default  = "West US"
+  default  = "West Europe"
 }
 
 variable "client_id" {}

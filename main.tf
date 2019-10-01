@@ -4,7 +4,7 @@ terraform {
     organization = "hashicorp-team-da-beta"
 
     workspaces {
-      name = "consul-gateways-azure"
+      name = "demo-consul-ambassador"
     }
   }
 }
