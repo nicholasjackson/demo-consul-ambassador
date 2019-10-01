@@ -1,0 +1,34 @@
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: consul-website-mapping
+  namespace: default
+spec:
+  prefix: /
+  host: emojify.today
+  service: emojify-website-sidecar-proxy
+  resolver: consul-dc1
+  tls: ambassador-consul
+  load_balancer:
+    policy: round_robin
+
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: consul-api-mapping
+  namespace: default
+spec:
+  prefix: /api/
+  timeout_ms: 20000
+  host: emojify.today
+  service: emojify-api-sidecar-proxy
+  resolver: consul-dc1
+  tls: ambassador-consul
+  load_balancer:
+    policy: round_robin
+  retry_policy:
+    retry_on: "5xx"
+    num_retries: 2
+    per_try_timeout: "2s"
