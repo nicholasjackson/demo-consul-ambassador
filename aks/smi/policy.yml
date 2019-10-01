@@ -1,0 +1,50 @@
+---
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: TCPRoute
+metadata:
+  name: currency
+
+---
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha1
+metadata:
+  name: currency-targets
+  namespace: default
+destination:
+  kind: ServiceAccount
+  name: currency
+  namespace: default
+sources:
+- kind: ServiceAccount
+  name: web
+  namespace: default
+- kind: ServiceAccount
+  name: payment
+  namespace: default
+specs:
+- kind: TCPRoute
+  name: currency
+
+---
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: TCPRoute
+metadata:
+  name: payment
+
+---
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha1
+metadata:
+  name: payment-targets
+  namespace: default
+destination:
+  kind: ServiceAccount
+  name: payment
+  namespace: default
+sources:
+- kind: ServiceAccount
+  name: web
+  namespace: default
+specs:
+- kind: TCPRoute
+  name: payment
